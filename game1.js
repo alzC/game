@@ -19,6 +19,7 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var score = 0;
 var lives = 3;
+var color = "#fff75f";
 
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
@@ -78,7 +79,7 @@ function collisionDetection() {
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle =  color;
   ctx.fill();
   ctx.closePath();
 }
@@ -128,13 +129,16 @@ function draw() {
 
   if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
     dx = -dx;
+     color = "#0095DD"
   }
   if(y + dy < ballRadius) {
     dy = -dy;
+     color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
   }
   else if(y + dy > canvas.height-ballRadius) {
     if(x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
+      dy -= 1;
     }
     else {
       lives--;
